@@ -5,7 +5,7 @@ import { client, urlFor } from '../../lib/client';
 import { useEffect } from 'react';
 import moment from 'moment';
 
-const Post = forwardRef(({ image, title, createdAt, body }) => {
+const Post = forwardRef(({ id, image, title, createdAt, body }, ref) => {
   const [content, setContent] = useState('');
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Post = forwardRef(({ image, title, createdAt, body }) => {
   }, []);
 
   return (
-    <Link to={`/blog/33`} className="item">
+    <Link to={`/blog/${id}`} className="item">
       <div className="w-72  h-40">
         <img
           src={urlFor(image)}
@@ -62,6 +62,7 @@ const Section2 = () => {
         {post.map((post, index) => (
           <Post
             key={index}
+            id={post._id}
             title={post.title}
             createdAt={post._createdAt}
             image={post.mainImage}
