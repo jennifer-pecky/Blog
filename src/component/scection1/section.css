@@ -1,0 +1,30 @@
+.slide {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 30px;
+}
+
+.slide1 h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: normal;
+    color: rgb(185, 146, 94);
+}
+
+.slide1 h1:hover {
+    color: #b6998d;
+}
+
+.heading h1 {
+    text-align: center;
+    padding: 2%;
+    font-size: 2rem;
+    background: -webkit-linear-gradient(#EEE7E4, black, #EEE7E4, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* color: ; */
+}
+
+span {
+    color: rgb(185, 146, 94);
+}
