@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { forwardRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './section2.css';
 import { client, urlFor } from '../../lib/client';
+import { useEffect } from 'react';
+import moment from 'moment';
 
-const Post = ({ mainImage }) => {
+const Post = forwardRef(({ image, title, createdAt, body }) => {
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    console.log(content);
+    setContent(body[0].children[0].text);
+  }, []);
+
   return (
     <Link to={`/blog/33`} className="item">
       <div className="w-72  h-40">
         <img
-          src={urlFor(mainImage)}
+          src={urlFor(image)}
           className="rounded max-w-full max-h-full w-full h-full object-center object-cover"
           width={500}
           height={350}
@@ -18,26 +27,19 @@ const Post = ({ mainImage }) => {
       <div className="flex justify-center flex-col py-4">
         <a>
           {' '}
-          <span>Business, Travel</span> - Jun 3,2022{' '}
+          <span>{title}</span> - {moment(createdAt).format('MMM Do YY')}
         </a>
       </div>
 
       <a className="text-xl font-bold text-gray-800 hover:text-gray-600">
         {' '}
-        <h1>
-          Your most unhappy customers are your greatest source of learning
-        </h1>
+        <h1>{title}</h1>
       </a>
 
-      <p className="text-gray-500 py-3">
-        Even the all-powerful pointing has no control about the the blind texts
-        it is an almost <br /> unorthographic life, One day however a small line
-        of blind text by the name of lorem <br /> ipsum decided to leave for the
-        far world of Grammer..
-      </p>
+      <p className="text-gray-500 py-3">{content.substr(0, 100)}...</p>
     </Link>
   );
-};
+});
 
 const Section2 = () => {
   const [post, setPost] = React.useState([]);
@@ -47,7 +49,7 @@ const Section2 = () => {
       console.log(response);
       setPost(response);
     });
-  }, [post]);
+  }, []);
 
   console.log('post response', post);
   return (
@@ -58,7 +60,13 @@ const Section2 = () => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
         {post.map((post, index) => (
-          <Post key={index} {...post} />
+          <Post
+            key={index}
+            title={post.title}
+            createdAt={post._createdAt}
+            image={post.mainImage}
+            body={post.body}
+          />
         ))}
         {/* <Post /> */}
       </div>
