@@ -69,7 +69,6 @@ const Section2 = () => {
             body={post.body}
           />
         ))}
-        {/* <Post /> */}
       </div>
     </section>
   );
